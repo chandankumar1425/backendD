@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+</head>
+<body>
+    <h1>All Notes Shown Here</h1>
+    <div id="notebox">
+        
+
+    </div>
+    <a href="./index.html">go to register page</a><br>
+    <a href="./signin.html">go to log in page</a><br>
+    <a href="./note.html">go to create note</a>
+    
+
+</body>
+</html>
+<script>
+
+const getData=()=>{
+    fetch("http://localhost:4500/note/",
+    {method:"GET",
+    headers:{
+        "Authorization":localStorage.getItem("token")
+    }
+   
+})
+.then((res)=>{return res.json();
+    
+
+})
+.then((res)=>{
+     
+        
+        
+    console.log(res)
+    Display(res)
+    
+    
+
+})
+.catch((err)=>{console.log(err);})}
+
+// let api=("http://localhost:9898/notes")
+//     fectheddata()
+//     async function fectheddata(){
+//         try{
+//             let res=await  fetch(api,{
+  
+//   headers:{
+//       "Authorization":localStorage.getItem("token")
+//   }
+ 
+// })
+//             let data= await res.json()
+//             console.log(data);
+//             Display(data)
+//         }catch(err){
+//             console.log(err)
+//         }
+//     }
+// }
+getData()
+
+
+let notebox=document.getElementById("notebox")
+function Display(res){
+    res.forEach((element) => {
+       
+        
+        
+        let title = document.createElement("h1");
+        title.setAttribute("id","title")
+        title.innerText=element.title
+
+        let body = document.createElement("p");
+        body.setAttribute("id","body")
+        body.innerText=element.body
+
+        let author = document.createElement("p");
+        author.setAttribute("id","body")
+        author.innerText=element.sub
+
+        let id = document.createElement("p");
+        id.setAttribute("id","id")
+        id.innerText=element.userId
+
+        let dltbtn = document.createElement("button");
+        dltbtn.setAttribute("class","btn");
+        dltbtn.innerText = "DELETE";
+
+        // dltbtn.addEventListener("click",()=>{
+        //     if(){
+              
+        //     }else{
+            
+        //     }
+        // })
+
+        notebox.append(title,body,author,id,dltbtn)
+    });
+    
+   
+}
+
+
+// }
+
+
+    
+</script>

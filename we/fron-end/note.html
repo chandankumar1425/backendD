@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add A note </title>
+</head>
+<body>
+    <div id="container">
+        <!-- Append th edata from the js -->
+        <h1>Notes Creation Page</h1>
+        <input type="text" id="title" placeholder="Enter Note Title">
+        <input type="text" id="body" placeholder="Enter body Here">
+        <input type="text" id="sub" placeholder="Enter Subject Here">
+        <button onclick="onAdd()">Add</button>
+        <a href="./signin.html">Login Page</a>
+        <a href="./allnote.html">See All Note</a>
+    </div>
+</body>
+<script>
+   const onAdd=()=>{
+    const payload={
+        title:document.getElementById("title").value,
+        body:document.getElementById("body").value,
+        sub:document.getElementById("sub").value
+    }
+    fetch('http://localhost:4500/note/add',{
+            method:"POST",
+            headers : {
+                "Content-type":"application/json",
+                "Authorization":localStorage.getItem("token")
+            },
+            body:JSON.stringify(payload)
+        })
+        .then((res)=>{
+            return res.json();
+         })
+         .then((data)=>{
+            console.log(data);
+         })
+         .catch((err)=>{
+            console.log(err)
+         })
+   }
+</script>
+</html>

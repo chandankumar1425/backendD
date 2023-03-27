@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<style>
+</style>
+<body>
+        <h1>Register Page</h1>
+        <form id="form">
+            Email:-<input type="text`" id="email" placeholder="Enter Email">
+            Password:-<input type="text" id="pass" placeholder="Enter Password">
+            Location:-<input type="text" id="location" placeholder="Enter Curent Location">
+            Age:-<input type="number" id="age" placeholder="Enter Your Age">
+            <input type="submit" id="submit" value="Register">
+            <a href="./signin.html">GO TO LOGIN PAGE</a>
+        </form>            
+</body>
+<script>
+    let myForm = document.getElementById("form");
+
+
+    myForm.addEventListener('submit',(e)=>{
+        e.preventDefault();
+
+
+        let email = document.getElementById('email').value
+        let password = document.getElementById('pass').value
+        let location = document.getElementById('location').value
+        let age = document.getElementById('age').value
+
+        let obj = {
+            email:email,
+            pass:password,
+            location:location,
+            age:age
+        }
+        console.log(obj)
+
+        
+        fetch('http://localhost:4500/user/register',{
+            method:"POST",
+            headers : {
+                "Content-type":"application/json"
+            },
+            body:JSON.stringify(obj)
+        })
+         .then((res)=>{
+            return res.json();
+         })
+         .then((data)=>{
+            console.log(data);
+         })
+         .catch((err)=>{
+            console.log(err)
+         })
+         window.location="./signin.html"
+    })
+
+</script>
+</html>
