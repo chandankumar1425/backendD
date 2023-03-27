@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In Page</title>
+</head>
+<body>
+    <h1>Log In Here!</h1>
+    <form id="form" method="POST">
+            <input type="email" placeholder="Enter email" id="email" >
+            <input type="password" placeholder="password" id="password">
+            <input type="submit" name="submit" id="submit">
+    </form>
+    <a href="./register.html">Go to Register Page!</a>
+    <a href="./addposts.html">Go to Add Posts Page!</a>
+
+    
+</body>
+<script>
+    let myform=document.getElementById("form")
+    myform.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    let email=document.getElementById("email").value
+    let password=document.getElementById("password").value
+   
+    let obj={
+        email:email,
+        password:password
+        
+    }
+    console.log(obj)
+   
+
+fetch("http://localhost:5511/users/login",{
+    method:'POST',
+    headers:{
+        "Content-type":"application/json"
+    },
+    body:JSON.stringify(obj)
+})
+.then((res)=>{
+    return res.json();
+})
+.then((res)=>{
+    console.log(res);
+    localStorage.setItem("token",res.token);
+    // window.location.href = "./addposts.html";
+
+})
+.catch((err)=>{
+console.log(err);
+})
+
+})
+</script>
+</html>

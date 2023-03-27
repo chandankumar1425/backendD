@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Note</title>
+</head>
+<body>
+    <h1>Note Creation Page</h1>
+    <input type="text" id="title" placeholder="enter the title">
+    <input type="text" id="body" placeholder="enter the  note">
+    <input type="text" id="device" placeholder="enter the  device">
+    <input type="number" id="no_of_comments" placeholder="enter the comment">
+
+
+
+
+
+    <button onclick="onAdd()">ADD</button>
+    <a href="./posts.html">see all notes</a>
+    <a href="./login.html">go to login</a>
+    <a href="./register.html">go to register</a>
+
+</body>
+<script>
+const onAdd=()=>{
+    const payload={
+     title:document.getElementById("title").value,
+     body:document.getElementById("body").value,
+    device:document.getElementById("device").value,
+    no_of_comments:document.getElementById("no_of_comments").value
+
+    }
+   
+   
+    fetch("http://localhost:5511/posts/add",{
+    method:'POST',
+    headers:{
+        "Content-type":"application/json",
+        "Authorization":localStorage.getItem("token")
+    },
+    body:JSON.stringify(payload)
+})
+.then((res)=>{return res.json();
+})
+.then((res)=>{
+    console.log(res);
+})
+.catch((err)=>{console.log(err)
+})
+}
+
+
+</script>
+</html>

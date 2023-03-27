@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+</head>
+
+<body>
+    <h1>Notes</h1>
+    <div id="notebox">
+
+
+    </div>
+    <a href="./register.html">go to register page</a>
+    <a href="./login.html">go to log in page</a>
+    <a href="./addposts.html">go to create note</a>
+
+
+</body>
+
+</html>
+<script>
+
+    const getData = () => {
+        fetch("http://localhost:5511/posts", {
+            method: "GET",
+
+            headers: {
+                "Authorization": localStorage.getItem("token")
+            }
+
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((res) => {
+                console.log(res)
+                Display(res)
+            })
+            .catch((err) => { console.log(err); })
+    }
+
+    // let api=("http://localhost:9898/notes")
+    //     fectheddata()
+    //     async function fectheddata(){
+    //         try{
+    //             let res=await  fetch(api,{
+
+    //   headers:{
+    //       "Authorization":localStorage.getItem("token")
+    //   }
+
+    // })
+    //             let data= await res.json()
+    //             console.log(data);
+    //             Display(data)
+    //         }catch(err){
+    //             console.log(err)
+    //         }
+    //     }
+    // }
+    getData()
+
+
+    let notebox = document.getElementById("notebox")
+    function Display(res) {
+        res.forEach((element) => {
+
+            let title = document.createElement("h1");
+            title.setAttribute("id", "title")
+            title.innerText = element.title
+
+            let body = document.createElement("p");
+            body.setAttribute("id", "body")
+            body.innerText = element.body
+
+            let device = document.createElement("p");
+            device.setAttribute("id", "device")
+            device.innerText = element.device
+
+            let no_of_comments = document.createElement("p");
+            no_of_comments.setAttribute("id", "no_of_comments")
+            no_of_comments.innerText = element.no_of_comments
+
+            let id = document.createElement("p");
+            id.setAttribute("id", "id")
+            id.innerText = element.userID
+
+            let dltbtn = document.createElement("button");
+            dltbtn.setAttribute("class", "delete");
+            dltbtn.innerText = "DELETE";
+
+//             dltbtn.addEventListener("click", ()=>{
+//                 fetch(`https://salmon-vestments.cyclic.app//notes/delete/:id`, {
+//     method: 'DELETE',
+                        
+//             headers: {
+//                 "Authorization": localStorage.getItem("token")
+//             }
+//   })
+//   .then(res => {
+//     // handle success or error response here
+//     console.log(res)
+//     window.location.href="/notes.html"
+//   })
+ 
+//     .catch(error => {
+//       console.error('There was a problem with the fetch operation:', error);
+//     })
+
+//             })
+
+            notebox.append(title, body, device,no_of_comments, id, dltbtn)
+        })
+    }
+
+
+    
+    
+
+//     const deleteNote = (element.id) => {
+   
+//     fetch(`http://localhost:9898/notes/delete/${noteId}`, {
+//       method: 'DELETE',
+//       headers: {
+//         'Authorization': localStorage.getItem("token")
+//       }
+//     })
+//     .then(response => {
+//       if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//       }
+//       return response.json();
+//     })
+//     .then(data => {
+//       console.log(data); // log success message from server
+//       // do something with the response data if needed
+//       Display(data)
+//     })
+//     .catch(error => {
+//       console.error('There was a problem with the fetch operation:', error);
+//     });
+//   };
+
+</script>
+
+
+
